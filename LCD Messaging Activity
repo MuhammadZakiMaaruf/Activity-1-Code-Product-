@@ -1,0 +1,114 @@
+// C++ code
+//
+#include <Adafruit_LiquidCrystal.h>
+
+int button = 0;
+
+int button_1 = 0;
+
+int button_2 = 0;
+
+int button_3 = 0;
+
+int button_4 = 0;
+
+int button_5 = 0;
+
+int button_6 = 0;
+
+int Phase = 0;
+
+Adafruit_LiquidCrystal lcd_1(0);
+
+void setup()
+{
+  lcd_1.begin(16, 2);
+  pinMode(12, INPUT);
+  pinMode(12, OUTPUT);
+  pinMode(11, OUTPUT);
+  pinMode(10, OUTPUT);
+  pinMode(9, OUTPUT);
+  pinMode(8, OUTPUT);
+  pinMode(7, OUTPUT);
+  pinMode(6, OUTPUT);
+  pinMode(11, INPUT);
+  pinMode(10, INPUT);
+  pinMode(9, INPUT);
+  pinMode(8, INPUT);
+  pinMode(7, INPUT);
+  pinMode(6, INPUT);
+}
+
+void loop()
+{
+  button = digitalRead(12);
+  digitalWrite(12, HIGH);
+  digitalWrite(11, HIGH);
+  digitalWrite(10, HIGH);
+  digitalWrite(9, HIGH);
+  digitalWrite(8, HIGH);
+  digitalWrite(7, HIGH);
+  digitalWrite(6, HIGH);
+  if (button == LOW) {
+    lcd_1.print("Celebrate those");
+    lcd_1.setCursor(0, 1);
+    lcd_1.print("Accomplisments");
+    lcd_1.setCursor(0, 2);
+    Phase += 1;
+  }
+  button_1 = digitalRead(11);
+  if (button_1 == LOW) {
+    lcd_1.print("Small steps");
+    lcd_1.setCursor(0, 1);
+    lcd_1.print("Bamboozlements");
+    lcd_1.setCursor(0, 2);
+    Phase += 1;
+  }
+  button_2 = digitalRead(10);
+  if (button_2 == LOW) {
+    lcd_1.print("Patience brings");
+    lcd_1.setCursor(0, 1);
+    lcd_1.print("Big academists");
+    lcd_1.setCursor(0, 2);
+    Phase += 1;
+  }
+  button_3 = digitalRead(9);
+  if (button_3 == LOW) {
+    lcd_1.print("Patience brings");
+    lcd_1.setCursor(0, 1);
+    lcd_1.print("Leatherjackets");
+    lcd_1.setCursor(0, 2);
+    Phase += 1;
+  }
+  button_4 = digitalRead(8);
+  if (button_4 == LOW) {
+    lcd_1.print("Appreciate");
+    lcd_1.setCursor(0, 1);
+    lcd_1.print("Advertisements");
+    lcd_1.setCursor(0, 2);
+    Phase += 1;
+  }
+  button_5 = digitalRead(7);
+  if (button_5 == LOW) {
+    lcd_1.print("Have gratitude");
+    lcd_1.setCursor(0, 1);
+    lcd_1.print("Excommunicants");
+    lcd_1.setCursor(0, 2);
+    Phase += 1;
+  }
+  button_6 = digitalRead(6);
+  if (button_6 == LOW) {
+    lcd_1.print("Be thankful");
+    lcd_1.setCursor(0, 1);
+    lcd_1.print("Maladjustments");
+    lcd_1.setCursor(0, 2);
+    Phase += 1;
+  }
+  if (Phase == 7) {
+    lcd_1.print("Good job!");
+    lcd_1.setCursor(0, 1);
+    lcd_1.print("7 Good Buttons");
+    lcd_1.setCursor(0, 2);
+  }
+  delay(10); // Delay a little bit to improve simulation performance
+}
