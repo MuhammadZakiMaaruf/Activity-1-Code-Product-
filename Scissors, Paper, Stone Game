@@ -1,0 +1,75 @@
+// C++ code
+//
+#include <Servo.h>
+
+int inches = 0;
+
+int cm = 0;
+
+int Rock = 0;
+
+int Paper = 0;
+
+int Scissor = 0;
+
+int Phase = 0;
+
+int i = 0;
+
+long readUltrasonicDistance(int triggerPin, int echoPin)
+{
+  pinMode(triggerPin, OUTPUT);  // Clear the trigger
+  digitalWrite(triggerPin, LOW);
+  delayMicroseconds(2);
+  // Sets the trigger pin to HIGH state for 10 microseconds
+  digitalWrite(triggerPin, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(triggerPin, LOW);
+  pinMode(echoPin, INPUT);
+  // Reads the echo pin, and returns the sound wave travel time in microseconds
+  return pulseIn(echoPin, HIGH);
+}
+
+Servo servo_13;
+
+Servo servo_11;
+
+Servo servo_12;
+
+void setup()
+{
+  Serial.begin(9600);
+  servo_13.attach(13, 500, 2500);
+  servo_11.attach(11, 500, 2500);
+  servo_12.attach(12, 500, 2500);
+}
+
+void loop()
+{
+  Paper = 0.01723 * readUltrasonicDistance(7, 7);
+  Rock = 0.01723 * readUltrasonicDistance(6, 6);
+  Scissor = 0.01723 * readUltrasonicDistance(5, 5);
+  Phase = 0;
+  Serial.println(Paper);
+  if (Paper >= 5 && (Rock <= 5 && Scissor <= 5)) {
+    servo_13.write(90);
+    Phase = 1;
+  } else {
+    servo_13.write(0);
+  }
+  Serial.println(Scissor);
+  if (Scissor >= 5 && (Paper <= 5 && Rock <= 5)) {
+    servo_11.write(90);
+    Phase += 1;
+  } else {
+    servo_11.write(0);
+  }
+  Serial.println(Rock);
+  if (Rock >= 5 && (Paper <= 5 && Scissor <= 5)) {
+    servo_12.write(90);
+    Phase += 1;
+  } else {
+    servo_12.write(0);
+  }
+  delay(10); // Delay a little bit to improve simulation performance
+}
