@@ -38,7 +38,6 @@ Servo servo_12;
 
 void setup()
 {
-  Serial.begin(9600);
   servo_13.attach(13, 500, 2500);
   servo_11.attach(11, 500, 2500);
   servo_12.attach(12, 500, 2500);
@@ -46,28 +45,22 @@ void setup()
 
 void loop()
 {
-  Paper = 0.01723 * readUltrasonicDistance(7, 7);
-  Rock = 0.01723 * readUltrasonicDistance(6, 6);
-  Scissor = 0.01723 * readUltrasonicDistance(5, 5);
+  Paper = 0.01723 * readUltrasonicDistance(2, 3);
+  Rock = 0.01723 * readUltrasonicDistance(9, 10);
+  Scissor = 0.01723 * readUltrasonicDistance(6, 7);
   Phase = 0;
-  Serial.println(Paper);
-  if (Paper >= 5 && (Rock <= 5 && Scissor <= 5)) {
+  if (Paper < 20 && (Scissor > 20 && Rock > 20)) {
     servo_13.write(90);
-    Phase = 1;
   } else {
     servo_13.write(0);
   }
-  Serial.println(Scissor);
-  if (Scissor >= 5 && (Paper <= 5 && Rock <= 5)) {
+  if (Scissor < 20 && (Paper > 20 && Rock > 20)) {
     servo_11.write(90);
-    Phase += 1;
   } else {
     servo_11.write(0);
   }
-  Serial.println(Rock);
-  if (Rock >= 5 && (Paper <= 5 && Scissor <= 5)) {
+  if (Rock < 20 && (Paper > 20 && Scissor > 20)) {
     servo_12.write(90);
-    Phase += 1;
   } else {
     servo_12.write(0);
   }
